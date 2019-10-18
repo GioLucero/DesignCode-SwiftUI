@@ -16,13 +16,17 @@ struct ContentView: View {
             CardView()
                 .offset(x: 0, y: -40)
                 .scaleEffect(0.85)
+                .rotation3DEffect(Angle(degrees: 50.0), axis (x: 10.0, y: 10.0, z:10.0))
             
             CardView()
                 .offset(x: 0, y: -20)
                 .scaleEffect(0.9)
+                .rotation3DEffect(Angle(degrees: 40), axis (x: 10.0, y: 10.0, z:10.0))
+            
             
             CertificateView()
                 .scaleEffect(0.95)
+                .rotation3DEffect(Angle(degrees: 30), axis (x: 10.0, y: 10.0, z:10.0))
         }
     }
     
@@ -37,9 +41,7 @@ struct ContentView_Previews: PreviewProvider {
 struct CardView: View {
     var body: some View {
         VStack {
-            
             Text("Card Back")
-            
         }
         .frame(width: 300, height: 220)
         .background(Color.blue)
