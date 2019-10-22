@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var show = false
+    @State var viewState = CGSize.zero
     
     var body: some View {
         
@@ -25,6 +26,7 @@ struct ContentView: View {
                 .animation(.default)
             
             CardView()
+                .animation(.easeInOut(duration: 0.7))
                 .background(Color.blue)
                 .offset(x: 0, y: -40)
                 .scaleEffect(0.85)
@@ -35,6 +37,7 @@ struct ContentView: View {
                 .offset(x: 0, y: show ? -400 : -40)
             
             CardView()
+                .animation(.easeInOut(duration: 0.5))
                 .background(show ? Color.red : Color.blue)
                 .offset(x: 0, y: -20)
                 .scaleEffect(0.9)
@@ -42,10 +45,13 @@ struct ContentView: View {
 //                .rotation3DEffect(Angle(degrees: 40), axis: (x: 10.0, y: 10.0, z:10.0))
                 .blendMode(.hardLight)
                 .animation(.easeInOut(duration: 0.5))
-                .offset(x: 0, y: show ? -200 : -20)
+//                .offset(x: 0, y: show ? -200 : -20)
+                .offset(x: viewState.width, y: viewState.height)
             
             
             CertificateView()
+                .animation(.spring())
+                .offset(x: viewState.width, y: viewState.height)
                 .scaleEffect(0.95)
                 .rotationEffect(Angle(degrees: show ? 5 : 0))
 //                .rotation3DEffect(Angle(degrees: show ? 30 : 0), axis: (x: 10.0, y: 10.0, z: 10.0))
@@ -53,6 +59,17 @@ struct ContentView: View {
                 .onTapGesture {
                     self.show.toggle()
                 }
+            .gesture(
+                DragGesture()
+                    .onChanged { value in
+                        self.viewState = value.translation
+                        self.show = true
+                    }
+                    .onEnded { value in
+                        self.viewState = .zero
+                        self.show - false
+                }
+            )
         }
     }
     
