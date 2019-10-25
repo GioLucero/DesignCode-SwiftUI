@@ -67,7 +67,7 @@ struct ContentView: View {
                     }
                     .onEnded { value in
                         self.viewState = .zero
-                        self.show - false
+                        self.show = false
                 }
             )
         }
